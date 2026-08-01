@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.profile.PlayerProfile;
-import org.bukkit.profile.ProfileProperty;
+import com.destroystokyo.paper.profile.ProfileProperty;
 
 public class ItemBuilder {
    public static ItemStack item(Material material, String displayName, String s) {

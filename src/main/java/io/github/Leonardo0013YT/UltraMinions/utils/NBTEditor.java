@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerProfile;
-import org.bukkit.profile.ProfileProperty;
+import com.destroystokyo.paper.profile.ProfileProperty;
 
 /**
  * Rewritten for modern Paper (1.20.5+) which removed the legacy versioned

@@ -28,7 +28,6 @@ import io.github.Leonardo0013YT.UltraMinions.managers.TiersManager;
 import io.github.Leonardo0013YT.UltraMinions.managers.UpgradeManager;
 import io.github.Leonardo0013YT.UltraMinions.menus.MinionMenu;
 import io.github.Leonardo0013YT.UltraMinions.menus.SetupMenu;
-import io.github.Leonardo0013YT.UltraMinions.placeholders.MVdWPlaceholders;
 import io.github.Leonardo0013YT.UltraMinions.placeholders.Placeholders;
 import io.github.Leonardo0013YT.UltraMinions.utils.MetricsLite;
 import java.io.File;
@@ -128,10 +127,6 @@ public class Main extends JavaPlugin {
       this.shm.loadShop();
       if (this.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
          (new Placeholders(this)).register();
-      }
-
-      if (this.getServer().getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
-         (new MVdWPlaceholders(this)).register();
       }
 
       this.getCommand("msetup").setExecutor(new SetupCMD(this));
