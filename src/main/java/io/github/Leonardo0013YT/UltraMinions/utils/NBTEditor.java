@@ -10,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 
 /**
@@ -52,7 +52,7 @@ public final class NBTEditor {
       ItemMeta meta = head.getItemMeta();
       if (meta instanceof SkullMeta) {
          SkullMeta skullMeta = (SkullMeta)meta;
-         PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "MinionHead");
+         PlayerProfile profile = (PlayerProfile) Bukkit.createProfile(UUID.randomUUID(), "MinionHead");
          profile.setProperty(new ProfileProperty("textures", skinURL));
          skullMeta.setPlayerProfile(profile);
          head.setItemMeta(skullMeta);

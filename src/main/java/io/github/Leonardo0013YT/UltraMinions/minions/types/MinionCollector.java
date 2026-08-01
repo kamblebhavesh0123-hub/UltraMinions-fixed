@@ -27,7 +27,7 @@ public class MinionCollector extends Minion {
                armor.setItemInHand(this.getHandItem());
                PlayerMinionChest pmc = pm.getChest();
 
-               for(Entity e : (Collection)spawn.getWorld().getNearbyEntities(spawn, (double)5.0F, (double)5.0F, (double)5.0F).stream().filter((ex) -> ex instanceof Item).collect(Collectors.toList())) {
+               for(Entity e : spawn.getWorld().getNearbyEntities(spawn, (double)5.0F, (double)5.0F, (double)5.0F).stream().filter((ex) -> ex instanceof Item).collect(Collectors.toList())) {
                   Item i = (Item)e;
                   if (pmc.addItem(i.getItemStack())) {
                      i.remove();

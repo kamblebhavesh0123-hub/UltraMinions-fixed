@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 
 public class ItemBuilder {
@@ -84,7 +84,7 @@ public class ItemBuilder {
    }
 
    private static SkullMeta applyTexture(SkullMeta headMeta, String url) {
-      PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID(), "MinionHead");
+      PlayerProfile profile = (PlayerProfile) Bukkit.createProfile(UUID.randomUUID(), "MinionHead");
       profile.setProperty(new ProfileProperty("textures", url));
       headMeta.setPlayerProfile(profile);
       return headMeta;

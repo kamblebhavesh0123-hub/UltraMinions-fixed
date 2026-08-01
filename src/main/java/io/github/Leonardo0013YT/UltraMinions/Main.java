@@ -136,7 +136,7 @@ public class Main extends JavaPlugin {
       this.getServer().getPluginManager().registerEvents(new CraftListener(this), this);
       this.task = (new BukkitRunnable() {
          public void run() {
-            (new HashSet(PlayerData.getPlayers().values())).forEach((pd) -> pd.getMinions().values().forEach(PlayerMinion::update));
+            (new HashSet<PlayerData>(PlayerData.getPlayers().values())).forEach((pd) -> pd.getMinions().values().forEach(PlayerMinion::update));
          }
       }).runTaskTimer(this, 20L, 20L);
       if (!this.getCfm().isAutoSaveEnabled()) {
@@ -156,7 +156,7 @@ public class Main extends JavaPlugin {
       }
 
       if (!this.getCfm().isSecureStop()) {
-         for(PlayerData pd : new ArrayList(PlayerData.getPlayers().values())) {
+         for(PlayerData pd : new ArrayList<PlayerData>(PlayerData.getPlayers().values())) {
             this.getDb().savePlayerSync(pd.getUuid());
          }
       }

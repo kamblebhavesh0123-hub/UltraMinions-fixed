@@ -314,7 +314,7 @@ public class PlayerMinion {
             Location lo = mm.checkArroundSappling(this.spawn);
             if (lo != null) {
                s = lo;
-               lo.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, lo, 0);
+               lo.getWorld().spawnParticle(Particle.HAPPY_VILLAGER, lo, 0);
                this.locations.put("BUILD", new CVector(lo.toVector()));
             } else {
                Location de = mm.getArroundRandomWood(this.spawn);

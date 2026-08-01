@@ -109,7 +109,7 @@ public class PlayerListener implements Listener {
       this.plugin.setStop(true);
       int amount = Bukkit.getOnlinePlayers().size();
 
-      for(PlayerData pd : new ArrayList(PlayerData.getPlayers().values())) {
+      for(PlayerData pd : new ArrayList<PlayerData>(PlayerData.getPlayers().values())) {
          this.plugin.getDb().savePlayerSync(pd.getUuid());
       }
 

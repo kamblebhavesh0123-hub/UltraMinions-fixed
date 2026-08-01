@@ -371,7 +371,7 @@ public class Database {
             pd.setUnlocked(loadPlayer.getUnlocked());
             pd.setLevels(loadPlayer.getLevels());
 
-            for(String minion : new ArrayList(loadPlayer.getData())) {
+            for(String minion : new ArrayList<String>(loadPlayer.getData())) {
                MinionSave ms = Main.fromMinionString(minion);
                if (!this.plugin.getMm().getMinions().containsKey(ms.getKey())) {
                   loadPlayer.getData().remove(minion);

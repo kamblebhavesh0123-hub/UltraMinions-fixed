@@ -111,7 +111,7 @@ public class MinionPeasant extends Minion {
 
       for(Vector l : this.farmers) {
          Location lo = spawn.clone().add(l.getX(), l.getY() - (double)1.0F, l.getZ());
-         if (!lo.getBlock().getType().equals(Material.GRASS_BLOCK) && !lo.getBlock().getType().equals(Material.GRASS) && !lo.getBlock().getType().equals(Material.DIRT) && !lo.getBlock().getType().equals(Material.FARMLAND)) {
+         if (!lo.getBlock().getType().equals(Material.GRASS_BLOCK) && !lo.getBlock().getType().equals(Material.SHORT_GRASS) && !lo.getBlock().getType().equals(Material.DIRT) && !lo.getBlock().getType().equals(Material.FARMLAND)) {
             yes = false;
          }
       }
@@ -122,7 +122,7 @@ public class MinionPeasant extends Minion {
    public Location checkFamerDirt(Location loc) {
       for(Vector l : this.farmers) {
          Location lo = loc.clone().add(l.getX(), l.getY() - (double)1.0F, l.getZ());
-         if (lo.getBlock().getType().equals(Material.DIRT) || lo.getBlock().getType().equals(Material.GRASS) || lo.getBlock().getType().equals(Material.valueOf("GRASS_BLOCK"))) {
+         if (lo.getBlock().getType().equals(Material.DIRT) || lo.getBlock().getType().equals(Material.SHORT_GRASS) || lo.getBlock().getType().equals(Material.valueOf("GRASS_BLOCK"))) {
             return lo;
          }
       }
