@@ -1,0 +1,15 @@
+main: io.github.Leonardo0013YT.UltraMinions.Main
+author: Leonardo0013YT
+version: 5.7.1
+api-version: "1.21"
+name: UltraMinions
+load: POSTWORLD
+softdepend:
+  - Vault
+  - LuckPerms
+  - Essentials
+  - ShopGUIPlus
+  - PlaceholderAPI
+commands:
+  msetup:
+    aliases: [ minions ]

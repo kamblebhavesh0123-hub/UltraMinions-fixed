@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <groupId>io.github.Leonardo0013YT</groupId>
+   <artifactId>UltraMinions</artifactId>
+   <version>5.7.1</version>
+   <packaging>jar</packaging>
+
+   <properties>
+      <maven.compiler.source>21</maven.compiler.source>
+      <maven.compiler.target>21</maven.compiler.target>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+   </properties>
+
+   <repositories>
+      <repository>
+         <id>papermc</id>
+         <url>https://repo.papermc.io/repository/maven-public/</url>
+      </repository>
+      <repository>
+         <id>jitpack.io</id>
+         <url>https://jitpack.io</url>
+      </repository>
+      <repository>
+         <id>luckperms</id>
+         <url>https://repo.maven.apache.org/maven2/</url>
+      </repository>
+      <repository>
+         <id>placeholderapi</id>
+         <url>https://repo.helpch.at/releases/</url>
+      </repository>
+      <repository>
+         <id>essentialsx-releases</id>
+         <url>https://repo.essentialsx.net/releases/</url>
+      </repository>
+   </repositories>
+
+   <dependencies>
+      <!-- Paper server API, target version 1.21.11 -->
+      <dependency>
+         <groupId>io.papermc.paper</groupId>
+         <artifactId>paper-api</artifactId>
+         <version>1.21.11-R0.1-SNAPSHOT</version>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- Database connection pooling (plugin only uses HikariConfig/HikariDataSource) -->
+      <dependency>
+         <groupId>com.zaxxer</groupId>
+         <artifactId>HikariCP</artifactId>
+         <version>5.1.0</version>
+      </dependency>
+
+      <!-- Vault economy bridge -->
+      <dependency>
+         <groupId>com.github.MilkBowl</groupId>
+         <artifactId>VaultAPI</artifactId>
+         <version>1.7</version>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- LuckPerms permissions -->
+      <dependency>
+         <groupId>net.luckperms</groupId>
+         <artifactId>api</artifactId>
+         <version>5.5</version>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- EssentialsX -->
+      <dependency>
+         <groupId>net.essentialsx</groupId>
+         <artifactId>EssentialsX</artifactId>
+         <version>2.19.0</version>
+         <scope>provided</scope>
+      </dependency>
+
+      <!-- PlaceholderAPI -->
+      <dependency>
+         <groupId>me.clip</groupId>
+         <artifactId>placeholderapi</artifactId>
+         <version>2.11.6</version>
+         <scope>provided</scope>
+      </dependency>
+
+      <!--
+        ShopGUIPlus has no public Maven repository (premium plugin).
+        You must supply the jar yourself: create a "libs" folder in the
+        repo root and upload the ShopGUIPlus.jar you already run on your
+        server into it, named exactly "ShopGUIPlus.jar".
+      -->
+      <dependency>
+         <groupId>net.brcdev</groupId>
+         <artifactId>shopgui</artifactId>
+         <version>1.0</version>
+         <scope>system</scope>
+         <systemPath>${project.basedir}/libs/ShopGUIPlus.jar</systemPath>
+      </dependency>
+   </dependencies>
+
+   <build>
+      <finalName>${project.artifactId}-${project.version}</finalName>
+      <resources>
+         <resource>
+            <directory>src/main/resources</directory>
+         </resource>
+      </resources>
+   </build>
+</project>
