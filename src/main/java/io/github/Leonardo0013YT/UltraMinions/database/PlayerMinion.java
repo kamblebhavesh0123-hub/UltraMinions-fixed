@@ -186,7 +186,7 @@ public class PlayerMinion {
                return;
             }
 
-            if (this.action == this.getDelay() - 3) {
+            if (this.action == Math.max(this.getDelay() - 3, 1)) {
                if (this.plugin.getCfm().isOptimizeOnUnloadChunk()) {
                   if (this.loaded) {
                      this.executeAction();
