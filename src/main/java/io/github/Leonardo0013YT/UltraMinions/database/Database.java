@@ -375,7 +375,7 @@ public class Database {
                MinionSave ms = Main.fromMinionString(minion);
                if (!this.plugin.getMm().getMinions().containsKey(ms.getKey())) {
                   loadPlayer.getData().remove(minion);
-                  return;
+                  continue;
                }
 
                PlayerMinion pm = new PlayerMinion(Utils.getStringLocation(ms.getLoc()), ms.getKey(), p);
