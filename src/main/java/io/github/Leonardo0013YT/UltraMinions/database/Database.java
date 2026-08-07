@@ -268,7 +268,7 @@ public class Database {
                   Connection connection = this.hikari.getConnection();
                   PreparedStatement statement = connection.prepareStatement(SAVE);
                   statement.setString(1, Main.toDataString(ps));
-                  statement.setString(2, p.getUniqueId().toString());
+                  statement.setString(2, p.toString());
                   statement.execute();
                   this.close(connection, statement, (ResultSet)null);
                   PlayerData.remove(p);
@@ -280,7 +280,7 @@ public class Database {
                   Connection connection = this.getConnection();
                   PreparedStatement statement = connection.prepareStatement(SAVE);
                   statement.setString(1, Main.toDataString(ps));
-                  statement.setString(2, p.getUniqueId().toString());
+                  statement.setString(2, p.toString());
                   statement.execute();
                   this.close(connection, statement, (ResultSet)null);
                   PlayerData.remove(p);
@@ -310,7 +310,7 @@ public class Database {
                   Connection connection = this.hikari.getConnection();
                   PreparedStatement statement = connection.prepareStatement(SAVE);
                   statement.setString(1, Main.toDataString(ps));
-                  statement.setString(2, p.getUniqueId().toString());
+                  statement.setString(2, p.toString());
                   statement.execute();
                   this.close(connection, statement, (ResultSet)null);
                } catch (SQLException e) {
@@ -321,7 +321,7 @@ public class Database {
                   Connection connection = this.getConnection();
                   PreparedStatement statement = connection.prepareStatement(SAVE);
                   statement.setString(1, Main.toDataString(ps));
-                  statement.setString(2, p.getUniqueId().toString());
+                  statement.setString(2, p.toString());
                   statement.execute();
                   this.close(connection, statement, (ResultSet)null);
                } catch (SQLException e) {
