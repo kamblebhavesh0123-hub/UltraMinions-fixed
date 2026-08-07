@@ -1,0 +1,179 @@
+package io.github.Leonardo0013YT.UltraMinions.cmds;
+
+import io.github.Leonardo0013YT.UltraMinions.Main;
+import io.github.Leonardo0013YT.UltraMinions.database.MinionRecord;
+import io.github.Leonardo0013YT.UltraMinions.database.PlayerData;
+import io.github.Leonardo0013YT.UltraMinions.database.PlayerMinion;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
+
+/**
+ * Handles the /minions command family: save, load, and list.
+ *
+ * "save" and "list" read every minion on the server directly from the
+ * database, covering online and offline owners alike. "load" refreshes
+ * the in-memory tracking and entities for currently online players only,
+ * since offline players' minions are not kept spawned in the world (they
+ * are simulated forward on next login, per the offlineWorking setting).
+ */
+public class MinionsCMD implements CommandExecutor, TabExecutor {
+   private final Main plugin;
+
+   public MinionsCMD(Main plugin) {
+      this.plugin = plugin;
+   }
+
+   public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+      if (!sender.hasPermission("ultraminions.admin")) {
+         sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+         return true;
+      }
+
+      if (args.length < 1) {
+         sender.sendMessage(ChatColor.YELLOW + "Usage: /minions <save|load|list>");
+         return true;
+      }
+
+      switch (args[0].toLowerCase()) {
+         case "save":
+            this.handleSave(sender);
+            return true;
+         case "load":
+            this.handleLoad(sender);
+            return true;
+         case "list":
+            this.handleList(sender);
+            return true;
+         default:
+            sender.sendMessage(ChatColor.YELLOW + "Usage: /minions <save|load|list>");
+            return true;
+      }
+   }
+
+   /**
+    * Forces an immediate save of every online player's current minion
+    * state to the database (without interrupting their minions, unlike
+    * the shutdown-time save), then writes a full snapshot of every
+    * minion on the server into per-world YAML files under
+    * plugins/UltraMinions/MinionsSave/.
+    */
+   private void handleSave(CommandSender sender) {
+      sender.sendMessage(ChatColor.GREEN + "Saving minions...");
+      for (Player p : Bukkit.getOnlinePlayers()) {
+         this.plugin.getDb().savePlayerSyncKeepAlive(p.getUniqueId());
+      }
+
+      this.plugin.getDb().getAllMinionRecords((records) -> {
+         this.writeSaveFiles(records);
+         sender.sendMessage(ChatColor.GREEN + "Saved " + records.size() + " minions successfully.");
+      });
+   }
+
+   /**
+    * Reloads every online player's minions from the database: removes
+    * their current minion entities and in-memory tracking, then
+    * re-fetches and respawns everything fresh from storage.
+    */
+   private void handleLoad(CommandSender sender) {
+      int players = 0;
+      for (Player p : Bukkit.getOnlinePlayers()) {
+         PlayerData pd = PlayerData.getPlayerData(p);
+         if (pd != null) {
+            for (PlayerMinion pm : new ArrayList<>(pd.getMinions().values())) {
+               if (pm.getArmor() != null) {
+                  pm.getArmor().remove();
+               }
+            }
+
+            PlayerData.remove(p);
+         }
+
+         this.plugin.getDb().loadPlayer(p);
+         players++;
+      }
+
+      sender.sendMessage(ChatColor.GREEN + "Loaded minions for " + players + " online player(s).");
+   }
+
+   /**
+    * Lists every minion on the server (online or offline owners) with
+    * its owner, type, world, coordinates, and level.
+    */
+   private void handleList(CommandSender sender) {
+      sender.sendMessage(ChatColor.YELLOW + "Fetching minion list...");
+      this.plugin.getDb().getAllMinionRecords((records) -> {
+         if (records.isEmpty()) {
+            sender.sendMessage(ChatColor.YELLOW + "No minions found.");
+            return;
+         }
+
+         int i = 1;
+         for (MinionRecord r : records) {
+            sender.sendMessage(ChatColor.GRAY + "#" + i + " " + ChatColor.WHITE + "Owner: " + ChatColor.AQUA + r.getOwner()
+               + ChatColor.WHITE + "  Type: " + ChatColor.AQUA + r.getType()
+               + ChatColor.WHITE + "  World: " + ChatColor.AQUA + r.getWorld()
+               + ChatColor.WHITE + "  X:" + (int) r.getX() + " Y:" + (int) r.getY() + " Z:" + (int) r.getZ()
+               + ChatColor.WHITE + "  Level: " + ChatColor.AQUA + r.getLevel());
+            i++;
+         }
+      });
+   }
+
+   private void writeSaveFiles(List<MinionRecord> records) {
+      Map<String, List<MinionRecord>> byWorld = new HashMap<>();
+      for (MinionRecord r : records) {
+         byWorld.computeIfAbsent(r.getWorld(), (k) -> new ArrayList<>()).add(r);
+      }
+
+      File folder = new File(this.plugin.getDataFolder(), "MinionsSave");
+      if (!folder.exists()) {
+         folder.mkdirs();
+      }
+
+      for (Map.Entry<String, List<MinionRecord>> entry : byWorld.entrySet()) {
+         File file = new File(folder, entry.getKey() + ".yml");
+         try (FileWriter writer = new FileWriter(file)) {
+            writer.write("minions:\n");
+            int i = 1;
+            for (MinionRecord r : entry.getValue()) {
+               writer.write("  " + i + ":\n");
+               writer.write("    owner: '" + r.getOwner() + "'\n");
+               writer.write("    type: '" + r.getType() + "'\n");
+               writer.write("    world: '" + r.getWorld() + "'\n");
+               writer.write("    x: " + r.getX() + "\n");
+               writer.write("    y: " + r.getY() + "\n");
+               writer.write("    z: " + r.getZ() + "\n");
+               writer.write("    level: " + r.getLevel() + "\n");
+               i++;
+            }
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      }
+   }
+
+   public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+      if (args.length == 1) {
+         List<String> options = new ArrayList<>();
+         for (String option : new String[]{"save", "load", "list"}) {
+            if (option.startsWith(args[0].toLowerCase())) {
+               options.add(option);
+            }
+         }
+         return options;
+      }
+      return new ArrayList<>();
+   }
+}

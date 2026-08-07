@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -267,7 +268,7 @@ public class Database {
                   Connection connection = this.hikari.getConnection();
                   PreparedStatement statement = connection.prepareStatement(SAVE);
                   statement.setString(1, Main.toDataString(ps));
-                  statement.setString(2, p.toString());
+                  statement.setString(2, p.getUniqueId().toString());
                   statement.execute();
                   this.close(connection, statement, (ResultSet)null);
                   PlayerData.remove(p);
@@ -279,7 +280,7 @@ public class Database {
                   Connection connection = this.getConnection();
                   PreparedStatement statement = connection.prepareStatement(SAVE);
                   statement.setString(1, Main.toDataString(ps));
-                  statement.setString(2, p.toString());
+                  statement.setString(2, p.getUniqueId().toString());
                   statement.execute();
                   this.close(connection, statement, (ResultSet)null);
                   PlayerData.remove(p);
@@ -292,18 +293,110 @@ public class Database {
       }
    }
 
+   /**
+    * Saves a player's current minion data to the database synchronously,
+    * without removing them from the in-memory tracking map. Used by
+    * /minions save, where minions must keep working for online players
+    * after the save completes (unlike savePlayerSync, which is only
+    * used during shutdown/logout when tracking should stop anyway).
+    */
+   public void savePlayerSyncKeepAlive(UUID p) {
+      PlayerData pd = PlayerData.getPlayerUUID(p);
+      if (pd != null) {
+         DataSave ps = this.playerDataToDataSave(pd, true, false);
+         if (ps != null) {
+            if (enabled) {
+               try {
+                  Connection connection = this.hikari.getConnection();
+                  PreparedStatement statement = connection.prepareStatement(SAVE);
+                  statement.setString(1, Main.toDataString(ps));
+                  statement.setString(2, p.getUniqueId().toString());
+                  statement.execute();
+                  this.close(connection, statement, (ResultSet)null);
+               } catch (SQLException e) {
+                  e.printStackTrace();
+               }
+            } else {
+               try {
+                  Connection connection = this.getConnection();
+                  PreparedStatement statement = connection.prepareStatement(SAVE);
+                  statement.setString(1, Main.toDataString(ps));
+                  statement.setString(2, p.getUniqueId().toString());
+                  statement.execute();
+                  this.close(connection, statement, (ResultSet)null);
+               } catch (SQLException e) {
+                  e.printStackTrace();
+               }
+            }
+         }
+      }
+   }
+
+   /**
+    * Reads every player's saved minion data directly from the database
+    * (online or offline) and hands back a flat list of lightweight
+    * MinionRecord summaries (owner, type, world, coordinates, level).
+    * Runs asynchronously; the callback is invoked back on the main
+    * thread once the scan completes.
+    */
+   public void getAllMinionRecords(java.util.function.Consumer<List<MinionRecord>> callback) {
+      (new BukkitRunnable() {
+         public void run() {
+            List<MinionRecord> records = new ArrayList<>();
+            try {
+               Connection connection = Database.enabled ? Database.this.hikari.getConnection() : Database.this.getConnection();
+               PreparedStatement select = connection.prepareStatement("SELECT UUID, Name, Data FROM UltraMinions");
+               ResultSet result = select.executeQuery();
+
+               while (result.next()) {
+                  String name = result.getString("Name");
+                  String dataStr = result.getString("Data");
+                  if (dataStr == null) {
+                     continue;
+                  }
+
+                  try {
+                     DataSave ds = Main.fromDataString(dataStr);
+                     if (ds == null || ds.getData() == null) {
+                        continue;
+                     }
+
+                     for (String minionStr : ds.getData()) {
+                        try {
+                           MinionSave ms = Main.fromMinionString(minionStr);
+                           String[] loc = ms.getLoc().split(";");
+                           records.add(new MinionRecord(name, ms.getKey(), loc[0],
+                              Double.parseDouble(loc[1]), Double.parseDouble(loc[2]), Double.parseDouble(loc[3]),
+                              ms.getLevel()));
+                        } catch (Exception ignored) {
+                        }
+                     }
+                  } catch (Exception ignored) {
+                  }
+               }
+
+               Database.this.close(connection, select, result);
+            } catch (SQLException e) {
+               e.printStackTrace();
+            }
+
+            Bukkit.getScheduler().runTask(Database.this.plugin, () -> callback.accept(records));
+         }
+      }).runTaskAsynchronously(this.plugin);
+   }
+
    public void autoSave() {
       (new BukkitRunnable() {
          public void run() {
             for(Player p : Bukkit.getOnlinePlayers()) {
                PlayerData pd = PlayerData.getPlayerData(p);
                if (pd == null) {
-                  return;
+                  continue;
                }
 
                DataSave ps = Database.this.playerDataToDataSave(pd, true, true);
                if (ps == null) {
-                  return;
+                  continue;
                }
 
                if (Database.enabled) {
@@ -311,7 +404,7 @@ public class Database {
                      Connection connection = Database.this.hikari.getConnection();
                      PreparedStatement statement = connection.prepareStatement(Database.SAVE);
                      statement.setString(1, Main.toDataString(ps));
-                     statement.setString(2, p.toString());
+                     statement.setString(2, p.getUniqueId().toString());
                      statement.execute();
                      Database.this.close(connection, statement, (ResultSet)null);
                   } catch (SQLException e) {
@@ -322,7 +415,7 @@ public class Database {
                      Connection connection = Database.this.getConnection();
                      PreparedStatement statement = connection.prepareStatement(Database.SAVE);
                      statement.setString(1, Main.toDataString(ps));
-                     statement.setString(2, p.toString());
+                     statement.setString(2, p.getUniqueId().toString());
                      statement.execute();
                      Database.this.close(connection, statement, (ResultSet)null);
                   } catch (SQLException e) {

@@ -1,6 +1,6 @@
 main: io.github.Leonardo0013YT.UltraMinions.Main
-author: Leonardo0013YT
-version: 5.7.1
+author: Bhavesh
+version: 6.0.0
 api-version: "1.21"
 name: UltraMinions
 load: POSTWORLD
@@ -12,4 +12,7 @@ softdepend:
   - PlaceholderAPI
 commands:
   msetup:
-    aliases: [ minions ]
+  minions:
+    description: Save, load, and list all placed minions.
+    usage: /minions <save|load|list>
+    permission: ultraminions.admin

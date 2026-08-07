@@ -6,7 +6,7 @@
 
    <groupId>io.github.Leonardo0013YT</groupId>
    <artifactId>UltraMinions</artifactId>
-   <version>5.7.1</version>
+   <version>6.0.0</version>
    <packaging>jar</packaging>
 
    <properties>

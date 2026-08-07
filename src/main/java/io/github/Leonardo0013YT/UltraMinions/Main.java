@@ -130,6 +130,7 @@ public class Main extends JavaPlugin {
       }
 
       this.getCommand("msetup").setExecutor(new SetupCMD(this));
+      this.getCommand("minions").setExecutor(new io.github.Leonardo0013YT.UltraMinions.cmds.MinionsCMD(this));
       this.getServer().getPluginManager().registerEvents(new SetupListener(this), this);
       this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
       this.getServer().getPluginManager().registerEvents(new MenuListener(this), this);
@@ -139,7 +140,7 @@ public class Main extends JavaPlugin {
             (new HashSet<PlayerData>(PlayerData.getPlayers().values())).forEach((pd) -> pd.getMinions().values().forEach(PlayerMinion::update));
          }
       }).runTaskTimer(this, 20L, 20L);
-      if (!this.getCfm().isAutoSaveEnabled()) {
+      if (this.getCfm().isAutoSaveEnabled()) {
          (new BukkitRunnable() {
             public void run() {
                Main.this.getDb().autoSave();
