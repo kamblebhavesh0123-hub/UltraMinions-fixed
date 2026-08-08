@@ -1,0 +1,41 @@
+222:   public void savePlayer(final Player p) {
+223-      PlayerData pd = PlayerData.getPlayerData(p);
+224-      if (pd != null) {
+225-         final DataSave ps = this.playerDataToDataSave(pd, false, false);
+226-         if (ps != null) {
+227-            (new BukkitRunnable() {
+228-               public void run() {
+229-                  if (Database.enabled) {
+230-                     try {
+231-                        Connection connection = Database.this.hikari.getConnection();
+232-                        PreparedStatement statement = connection.prepareStatement(Database.SAVE);
+233-                        statement.setString(1, Main.toDataString(ps));
+234-                        statement.setString(2, p.getUniqueId().toString());
+235-                        statement.execute();
+236-                        Database.this.close(connection, statement, (ResultSet)null);
+237-                        PlayerData.remove(p);
+238-                     } catch (SQLException e) {
+239-                        e.printStackTrace();
+240-                     }
+241-                  } else {
+242-                     try {
+243-                        Connection connection = Database.this.getConnection();
+244-                        PreparedStatement statement = connection.prepareStatement(Database.SAVE);
+245-                        statement.setString(1, Main.toDataString(ps));
+246-                        statement.setString(2, p.getUniqueId().toString());
+247-                        statement.execute();
+248-                        Database.this.close(connection, statement, (ResultSet)null);
+249-                        PlayerData.remove(p);
+250-                     } catch (SQLException e) {
+251-                        e.printStackTrace();
+252-                     }
+253-                  }
+254-
+255-               }
+256-            }).runTaskAsynchronously(this.plugin);
+257-         }
+258-      }
+259-   }
+260-
+261-   public void savePlayerSync(UUID p) {
+262-      PlayerData pd = PlayerData.getPlayerUUID(p);

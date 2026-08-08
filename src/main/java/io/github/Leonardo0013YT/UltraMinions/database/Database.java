@@ -303,7 +303,10 @@ public class Database {
    public void savePlayerSyncKeepAlive(UUID p) {
       PlayerData pd = PlayerData.getPlayerUUID(p);
       if (pd != null) {
-         DataSave ps = this.playerDataToDataSave(pd, true, false);
+         // IMPORTANT:
+         // /minions save must save the data WITHOUT destroying
+         // the currently spawned minions.
+         DataSave ps = this.playerDataToDataSave(pd, true, true);
          if (ps != null) {
             if (enabled) {
                try {
@@ -577,8 +580,20 @@ public class Database {
          }
 
          minionSaves.add(Main.toMinionString(pms));
-         if (!autoSave) {
-            this.removeWhenOffline(pm, sync);
+      }
+
+      // Entity cleanup happens in its own pass, after every minion's data
+      // has already been safely captured above. This way, if destroying
+      // one minion's entity ever fails or throws, it cannot prevent the
+      // other minions' data from being saved - each entry above is already
+      // safe in minionSaves by this point.
+      if (!autoSave) {
+         for (PlayerMinion pm : pd.getMinions().values()) {
+            try {
+               this.removeWhenOffline(pm, sync);
+            } catch (Exception e) {
+               this.plugin.sendLogMessage("Failed to clean up minion entity for " + pd.getUuid() + " (data was still saved): " + e.getMessage());
+            }
          }
       }
 
@@ -596,8 +611,6 @@ public class Database {
 
          pm.destroy();
       }
-
-      pm.destroy();
    }
 
    public int getActions(PlayerMinion pm, long lastLogin, int delay, int food, int health) {

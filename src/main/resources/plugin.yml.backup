@@ -13,5 +13,6 @@ softdepend:
 commands:
   msetup:
   minions:
-    description: UltraMinions commands including save, load, list, setup and administration.
-    usage: /minions <save|load|list|setup|give|reload|shop|forcesave|food|autosell|autosmelt|compressor|fuel|setmaxminion>
+    description: Save, load, and list all placed minions.
+    usage: /minions <save|load|list>
+    permission: ultraminions.admin

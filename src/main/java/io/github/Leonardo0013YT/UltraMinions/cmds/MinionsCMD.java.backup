@@ -30,11 +30,9 @@ import org.bukkit.entity.Player;
  */
 public class MinionsCMD implements CommandExecutor, TabExecutor {
    private final Main plugin;
-   private final SetupCMD legacyCommands;
 
    public MinionsCMD(Main plugin) {
       this.plugin = plugin;
-      this.legacyCommands = new SetupCMD(plugin);
    }
 
    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -59,8 +57,8 @@ public class MinionsCMD implements CommandExecutor, TabExecutor {
             this.handleList(sender);
             return true;
          default:
-            // Recover the useful 5.7.1 /minions commands.
-            return this.legacyCommands.onCommand(sender, cmd, label, args);
+            sender.sendMessage(ChatColor.YELLOW + "Usage: /minions <save|load|list>");
+            return true;
       }
    }
 
@@ -169,36 +167,13 @@ public class MinionsCMD implements CommandExecutor, TabExecutor {
    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
       if (args.length == 1) {
          List<String> options = new ArrayList<>();
-         String input = args[0].toLowerCase();
-
-         // New 6.0.0 commands.
          for (String option : new String[]{"save", "load", "list"}) {
-            if (option.startsWith(input)) {
+            if (option.startsWith(args[0].toLowerCase())) {
                options.add(option);
             }
          }
-
-         // Recovered 5.7.1 commands.
-         List<String> legacy = this.legacyCommands.onTabComplete(sender, cmd, label, args);
-         if (legacy != null) {
-            for (String option : legacy) {
-               if (option != null && !options.contains(option)
-                     && option.toLowerCase().startsWith(input)) {
-                  options.add(option);
-               }
-            }
-         }
-
          return options;
       }
-
-      if (args.length > 1) {
-         List<String> legacy =
-               this.legacyCommands.onTabComplete(sender, cmd, label, args);
-
-         return legacy != null ? legacy : new ArrayList<>();
-      }
-
       return new ArrayList<>();
    }
 }
