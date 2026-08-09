@@ -58,50 +58,10 @@ public class MinionsCMD implements CommandExecutor, TabExecutor {
          case "list":
             this.handleList(sender);
             return true;
-         case "debug":
-            this.handleDebug(sender, args.length >= 2 ? args[1] : (sender instanceof Player ? sender.getName() : null));
-            return true;
          default:
             // Recover the useful 5.7.1 /minions commands.
             return this.legacyCommands.onCommand(sender, cmd, label, args);
       }
-   }
-
-   /**
-    * Reads the raw saved data directly from the database for one player
-    * (bypassing any in-memory state entirely) and prints exactly what is
-    * actually stored right now. Used to diagnose data-loss issues by
-    * comparing what's saved against what's visible in-game.
-    */
-   private void handleDebug(CommandSender sender, String targetName) {
-      if (targetName == null) {
-         sender.sendMessage(ChatColor.RED + "Usage: /minions debug <player>");
-         return;
-      }
-
-      sender.sendMessage(ChatColor.YELLOW + "Reading raw database contents for " + targetName + "...");
-      this.plugin.getDb().getAllMinionRecords((records) -> {
-         List<MinionRecord> matches = new ArrayList<>();
-         for (MinionRecord r : records) {
-            if (r.getOwner() != null && r.getOwner().equalsIgnoreCase(targetName)) {
-               matches.add(r);
-            }
-         }
-
-         sender.sendMessage(ChatColor.GOLD + "=== Database contents for " + targetName + ": " + matches.size() + " minion(s) ===");
-         int i = 1;
-         for (MinionRecord r : matches) {
-            sender.sendMessage(ChatColor.GRAY + "#" + i + " " + ChatColor.WHITE + "Type: " + ChatColor.AQUA + r.getType()
-               + ChatColor.WHITE + "  World: " + ChatColor.AQUA + r.getWorld()
-               + ChatColor.WHITE + "  X:" + (int) r.getX() + " Y:" + (int) r.getY() + " Z:" + (int) r.getZ()
-               + ChatColor.WHITE + "  Level: " + ChatColor.AQUA + r.getLevel());
-            i++;
-         }
-
-         if (matches.isEmpty()) {
-            sender.sendMessage(ChatColor.RED + "No minions found in the database for this player.");
-         }
-      });
    }
 
    /**
