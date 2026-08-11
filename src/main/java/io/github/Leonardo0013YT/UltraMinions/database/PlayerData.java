@@ -13,10 +13,19 @@ public class PlayerData {
    private int maxMinion = 3;
    private long lastLogin;
    private HashMap<String, Integer> levels = new HashMap();
+   private boolean loaded = false;
 
    public PlayerData(UUID uuid) {
       this.uuid = uuid;
       players.put(uuid, this);
+   }
+
+   public boolean isLoaded() {
+      return this.loaded;
+   }
+
+   public void setLoaded(boolean loaded) {
+      this.loaded = loaded;
    }
 
    public static PlayerData getPlayerData(Player p) {

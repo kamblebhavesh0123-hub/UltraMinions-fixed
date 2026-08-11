@@ -221,7 +221,7 @@ public class Database {
 
    public void savePlayer(final Player p) {
       PlayerData pd = PlayerData.getPlayerData(p);
-      if (pd != null) {
+      if (pd != null && pd.isLoaded()) {
          final DataSave ps = this.playerDataToDataSave(pd, false, false);
          if (ps != null) {
             (new BukkitRunnable() {
@@ -302,7 +302,7 @@ public class Database {
     */
    public void savePlayerSyncKeepAlive(UUID p) {
       PlayerData pd = PlayerData.getPlayerUUID(p);
-      if (pd != null) {
+      if (pd != null && pd.isLoaded()) {
          // IMPORTANT:
          // /minions save must save the data WITHOUT destroying
          // the currently spawned minions.
@@ -393,7 +393,7 @@ public class Database {
          public void run() {
             for(Player p : Bukkit.getOnlinePlayers()) {
                PlayerData pd = PlayerData.getPlayerData(p);
-               if (pd == null) {
+               if (pd == null || !pd.isLoaded()) {
                   continue;
                }
 
@@ -530,6 +530,7 @@ public class Database {
                }
             }
 
+            pd.setLoaded(true);
          }
       });
    }
