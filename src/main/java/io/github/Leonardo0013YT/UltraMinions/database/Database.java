@@ -30,6 +30,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -531,6 +532,24 @@ public class Database {
             }
 
             pd.setLoaded(true);
+
+            Bukkit.getScheduler().runTaskLater(this.plugin, () -> {
+               ArrayList<PlayerMinion> recovered = new ArrayList<>();
+               for (PlayerMinion queued : new ArrayList<>(this.plugin.getMm().getToSpawn())) {
+                  if (pd.getMinions().containsValue(queued) && queued.getSpawn().getChunk().isLoaded()) {
+                     queued.firstSpawn();
+                     ArmorStand recoveredArmor = queued.getArmor();
+                     if (recoveredArmor != null) {
+                        this.plugin.getMm().getActiveMinions().put(recoveredArmor.getUniqueId(), queued);
+                        recovered.add(queued);
+                     }
+                  }
+               }
+               if (!recovered.isEmpty()) {
+                  this.plugin.getMm().getToSpawn().removeAll(recovered);
+                  this.plugin.sendLogMessage("Recovered " + recovered.size() + " minion(s) stuck waiting for chunk load for " + pd.getUuid());
+               }
+            }, 40L);
          }
       });
    }
