@@ -792,6 +792,10 @@ public class MenuListener implements Listener {
    }
 
    public String getTime(PlayerMinionStat stat, UpgradeFuel uf) {
+      if (uf.isUnlimited()) {
+         return this.plugin.getLang().get("menus.upgrades.fuel.time");
+      }
+
       long passed = System.currentTimeMillis() - stat.getFuel();
       long restant = uf.getDuration() * (long)stat.getAmountFuel(uf) - passed;
       int seconds = (int)restant / 1000;
