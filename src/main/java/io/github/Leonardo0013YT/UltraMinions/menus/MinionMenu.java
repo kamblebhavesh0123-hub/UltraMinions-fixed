@@ -494,6 +494,10 @@ public class MinionMenu {
    }
 
    public String getTime(PlayerMinionStat stat, UpgradeFuel uf) {
+      if (uf.isUnlimited()) {
+         return this.plugin.getLang().get("menus.upgrades.fuel.time");
+      }
+
       long passed = System.currentTimeMillis() - stat.getFuel();
       long restant = uf.getDuration() * (long)stat.getAmountFuel(uf) - passed;
       int seconds = (int)restant / 1000;
@@ -501,6 +505,10 @@ public class MinionMenu {
    }
 
    public boolean ended(PlayerMinionStat stat, UpgradeFuel uf) {
+      if (uf.isUnlimited()) {
+         return false;
+      }
+
       long passed = System.currentTimeMillis() - stat.getFuel();
       long restant = uf.getDuration() * (long)stat.getAmountFuel(uf) - passed;
       return restant < 0L;
