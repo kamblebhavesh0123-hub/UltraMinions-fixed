@@ -1,0 +1,435 @@
+minions:
+  obsidian:
+    key: obsidian
+    type: MINER
+    title: '&8Obsidian Minion'
+    lore:
+      - '&7This is an Obsidian Minion'
+      - '&7'
+      - '&eRight click to place'
+    url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+    place:
+      ==: org.bukkit.inventory.ItemStack
+      v: 3700
+      type: OBSIDIAN
+      amount: 1
+    red: 30
+    blue: 40
+    green: 55
+    spawn: ZOMBIE
+    compressorEnabled: false
+    smeltEnabled: false
+    priceNormalSell: 6.0
+    priceSmeltedSell: 0.0
+    priceCompressedSell: 0.0
+    autoSellEnabled: true
+    fuelEnabled: true
+    damage: 5
+    levels:
+      '0':
+        level: 1
+        levelTitle: '&8Obsidian Minion I'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 60000
+        upgradeLevels: 10
+        max: 50
+        delay: 115
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: DIAMOND_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: DIAMOND_PICKAXE
+      '1':
+        level: 2
+        levelTitle: '&8Obsidian Minion II'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 85000
+        upgradeLevels: 10
+        max: 100
+        delay: 108
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: DIAMOND_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: DIAMOND_PICKAXE
+      '2':
+        level: 3
+        levelTitle: '&8Obsidian Minion III'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 115000
+        upgradeLevels: 10
+        max: 150
+        delay: 101
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: DIAMOND_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: DIAMOND_PICKAXE
+      '3':
+        level: 4
+        levelTitle: '&8Obsidian Minion IV'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 145000
+        upgradeLevels: 10
+        max: 200
+        delay: 94
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: DIAMOND_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: DIAMOND_PICKAXE
+      '4':
+        level: 5
+        levelTitle: '&8Obsidian Minion V'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 180000
+        upgradeLevels: 10
+        max: 250
+        delay: 87
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: DIAMOND_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: DIAMOND_PICKAXE
+      '5':
+        level: 6
+        levelTitle: '&8Obsidian Minion VI'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 220000
+        upgradeLevels: 10
+        max: 300
+        delay: 80
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '6':
+        level: 7
+        levelTitle: '&8Obsidian Minion VII'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 260000
+        upgradeLevels: 10
+        max: 350
+        delay: 73
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '7':
+        level: 8
+        levelTitle: '&8Obsidian Minion VIII'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 300000
+        upgradeLevels: 10
+        max: 400
+        delay: 66
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '8':
+        level: 9
+        levelTitle: '&8Obsidian Minion IX'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 345000
+        upgradeLevels: 10
+        max: 450
+        delay: 59
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '9':
+        level: 10
+        levelTitle: '&8Obsidian Minion X'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 390000
+        upgradeLevels: 10
+        max: 500
+        delay: 52
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '10':
+        level: 11
+        levelTitle: '&8Obsidian Minion XI'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 440000
+        upgradeLevels: 10
+        max: 550
+        delay: 45
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '11':
+        level: 12
+        levelTitle: '&8Obsidian Minion XII'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 490000
+        upgradeLevels: 10
+        max: 600
+        delay: 38
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '12':
+        level: 13
+        levelTitle: '&8Obsidian Minion XIII'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 545000
+        upgradeLevels: 10
+        max: 650
+        delay: 31
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '13':
+        level: 14
+        levelTitle: '&8Obsidian Minion XIV'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 600000
+        upgradeLevels: 10
+        max: 700
+        delay: 24
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+      '14':
+        level: 15
+        levelTitle: '&8Obsidian Minion XV'
+        isCraftingTable: true
+        health: 100
+        food: 100
+        workTime: 3600
+        sleep: 600
+        upgradeCoins: 850000
+        upgradeLevels: 10
+        max: 960
+        delay: 12
+        isCraft: true
+        isLevel: false
+        isCoins: true
+        craft:
+          result: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+          items:
+            '4':
+              ==: org.bukkit.inventory.ItemStack
+              v: 3700
+              type: NETHERITE_PICKAXE
+              amount: 1
+          permission: none
+        url: REPLACE_WITH_A_REAL_HEAD_TEXTURE_FROM_MINECRAFT-HEADS.COM
+        animation: picar.animc
+        handItem: NETHERITE_PICKAXE
+    animation: picar.animc
+    handItem: DIAMOND_PICKAXE
