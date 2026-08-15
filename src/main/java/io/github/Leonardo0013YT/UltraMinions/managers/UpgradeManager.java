@@ -123,6 +123,19 @@ public class UpgradeManager {
                   return uf;
                }
             }
+
+            // Also accept the raw, unsubstituted config item - this is what
+            // a player actually receives from crafting (the <status>/<time>
+            // placeholders in its lore are never replaced at craft time),
+            // which otherwise would never match the substituted version above.
+            ItemStack raw = uf.getResult();
+            if (raw != null) {
+               ItemStack i = item.clone();
+               i.setAmount(raw.getAmount());
+               if (Utils.isSimilar(raw, i)) {
+                  return uf;
+               }
+            }
          }
 
          return null;

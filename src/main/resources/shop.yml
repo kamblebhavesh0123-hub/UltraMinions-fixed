@@ -248,3 +248,42 @@ shop:
       - '§ePrice: §b<price>'
       - '§7'
       - <status>
+  oak:
+    key: oak
+    price: 25000
+    page: 1
+    slot: 33
+    name: '§aMinion: <title>'
+    lore:
+      - '§7By clicking you will buy'
+      - '§7Minion <title>'
+      - '§7'
+      - '§ePrice: §b<price>'
+      - '§7'
+      - <status>
+  obsidian:
+    key: obsidian
+    price: 220000
+    page: 1
+    slot: 34
+    name: '§aMinion: <title>'
+    lore:
+      - '§7By clicking you will buy'
+      - '§7Minion <title>'
+      - '§7'
+      - '§ePrice: §b<price>'
+      - '§7'
+      - <status>
+  netherite:
+    key: netherite
+    price: 950000
+    page: 2
+    slot: 10
+    name: '§aMinion: <title>'
+    lore:
+      - '§7By clicking you will buy'
+      - '§7Minion <title>'
+      - '§7'
+      - '§ePrice: §b<price>'
+      - '§7'
+      - <status>
