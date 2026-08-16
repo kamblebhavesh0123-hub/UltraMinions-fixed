@@ -276,6 +276,18 @@ public class Main extends JavaPlugin {
          this.saveResource("minions/zombie.yml", false);
       }
 
+      if (this.checkFile("minions/oak.yml")) {
+         this.saveResource("minions/oak.yml", false);
+      }
+
+      if (this.checkFile("minions/netherite.yml")) {
+         this.saveResource("minions/netherite.yml", false);
+      }
+
+      if (this.checkFile("minions/obsidian.yml")) {
+         this.saveResource("minions/obsidian.yml", false);
+      }
+
    }
 
    private boolean checkFile(String path) {
